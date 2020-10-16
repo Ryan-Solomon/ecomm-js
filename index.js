@@ -1,24 +1,28 @@
-const express = require('express')
-
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
-    res.send(`
+  res.send(`
     <div>
-        <form>
-            <input type="email" placeholder="email" >
-            <input type="password" placeholder="password" >
-            <input type="name" placeholder="name" >
+        <form method="POST" >
+            <input name="email" type="email" placeholder="email" >
+            <input name="password" type="password" placeholder="password" >
+            <input name="passwordConfirmation" type="password" placeholder="password confirmation" >
+            <button>Sign Up</button>
         </form>
     </div>
     
-    `)
+    `);
 });
 
+app.post('/', (req, res) => {
+  res.send('Acount created homie');
+});
 
 app.listen(3000, () => {
-    console.log('Listening on 3k')
-})
-
-
+  console.log('Listening on 3k');
+});
