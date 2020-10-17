@@ -14,12 +14,17 @@ class UsersRepo {
   }
 
   async getAll() {
-    const contents = await fs.promises.readFile(this.filename, {
-      encoding: 'utf-8',
-    });
+    return JSON.parse(
+      await fs.promises.readFile(this.filename, {
+        encoding: 'utf-8',
+      })
+    );
+  }
 
-    const data = JSON.parse(contents);
-    return data;
+  async create(attrs) {
+    const records = await this.getAll();
+    records.push(attrs);
+    await fs.promises.writeFile(this.filename, JSON.stringify(records));
   }
 }
 
