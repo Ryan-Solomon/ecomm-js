@@ -73,7 +73,8 @@ class UsersRepo {
         return record;
       }
     }
+    throw new Error('Record not found');
   }
 }
 
-const repo = new UsersRepo('users.json');
+module.exports = new UsersRepository('users.json');
