@@ -49,6 +49,16 @@ class UsersRepo {
     const filteredRecs = records.filter((record) => record.id !== id);
     await this.writeAll(filteredRecs);
   }
+
+  async update(id, attrs) {
+    const records = await this.getAll();
+    const record = records.find((record) => record.id === id);
+    if (!record) {
+      throw new Error(`Record with id ${id} not found`);
+    }
+    Object.assign(record, attrs);
+    await this.writeAll(records);
+  }
 }
 
 const repo = new UsersRepo('users.json');
